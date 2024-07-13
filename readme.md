@@ -1,6 +1,7 @@
-## Dependencias usadas no projeto
+## Comandos para colocar o projeto online
 
-Estou utilizando o **yarn** para gerenciar os pacotes
+- **yarn dev** : Inicia o projeto com nodemon no ambiente producao (src)
+- **yarn start** : Inicia o projeto com node no ambiente desenvolvimento (dist)
 
 ## Comando basicos utilizados para iniciar o projeto (na pasta server)
 
@@ -14,6 +15,7 @@ Estou utilizando o **yarn** para gerenciar os pacotes
 - **yarn add @types/cors @types/express** : definicoes de tipos de typescript para cors e express
 - **yarn add @types/node** : definicoes de tipos de typescript para node
 - **yarn add typeorm** : Um ORM para fazer a conversao de js para sql (banco de dados)
+- **yarn add pg** : Para o typeorm se connectar com bancos baseados em postgreSql
 - **yarn add graphql**: Para as criacoes das API`s
 - **yarn add express-graphql** : Para integrar API ao express
 
@@ -34,6 +36,12 @@ Depois de usar o comando **tsc --init** o tsconfig.json sera criado automaticame
 - Descomentar o codigo  **"strictPropertyInitialization": true,** -> TypeScript garantirá que todas as propriedades de uma classe sejam inicializadas no construtor ou sejam marcadas como opcionais
 - Descomentar o codigo **"experimentalDecorators": true,** --> Decoradores
 - Descomentar o codigo **"emitDecoratorMetadata": true,** --> Decoradores
+
+## Distribuicao das pastas no projeto
+
+- Pasta client responsavel pelo frontend e pelo projeto react
+- Pasta server responsavel pelo backend, conexao com o banco de dados, servidor graphql...
+
 
 ## Link para utilizar o markdown
 
