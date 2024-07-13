@@ -39,8 +39,15 @@ Depois de usar o comando **tsc --init** o tsconfig.json sera criado automaticame
 
 ## Distribuicao das pastas no projeto
 
-- Pasta client responsavel pelo frontend e pelo projeto react
-- Pasta server responsavel pelo backend, conexao com o banco de dados, servidor graphql...
+#### Pasta client
+ Responsavel pelo frontend e pelo projeto react
+
+#### Pasta server
+ Responsavel pelo backend, conexao com o banco de dados, servidor graphql...
+    > Pasta **schema** serve para armazenar as queries e mutations do projeto.
+    > Pasta **schema/TypeDefs** armazena as variaveis usadas
+    > Pasta **schema/index.ts** disponibiliza as queries e mutations
+
 
 
 ## Link para utilizar o markdown
