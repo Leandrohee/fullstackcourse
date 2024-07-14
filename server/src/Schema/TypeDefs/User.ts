@@ -1,4 +1,4 @@
-/* --------------- ESSA PASTA LIDA COM CRIAR UMA VARIAVEL QUE ESTARA NO DB "User" --------------- */
+/* -------- ESSA PASTA LIDA COM CRIAR UMA VARIAVEL QUE SERA USADA POR MUTATIONS E QUERIES ------- */
 
 import { GraphQLObjectType, GraphQLID, GraphQLString } from "graphql";
 

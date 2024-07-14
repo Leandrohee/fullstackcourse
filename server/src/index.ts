@@ -8,11 +8,12 @@ import express from 'express';
 import { graphqlHTTP } from 'express-graphql';
 import {schema} from './Schema'
 import cors from 'cors';
-import { createConnection } from 'typeorm';
-import { DataSource } from 'typeorm';
+import { AppDataSource } from './Data/data-source';
 
 /* ------------------ CRIANDO UMA FUNCAO PRINCIPAL QUE LIDARA COM TODA A LOGICA ----------------- */
 async function main (){
+
+    await AppDataSource.initialize()                                // Iniciando a conexao com o banco de dados 
     
     const app = express()                                           // Cria uma instancia do express
     app.use(cors())                                                 // Usa o cors para lidar com o graphql
