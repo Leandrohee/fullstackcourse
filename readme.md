@@ -44,10 +44,10 @@ Depois de usar o comando **tsc --init** o tsconfig.json sera criado automaticame
 
 #### Pasta server
  Responsavel pelo backend, conexao com o banco de dados, servidor graphql...
-    > Pasta **dist** : desenvolvimento
-    > Past **src** : producao
-    > Pasta **src/schema** serve para armazenar as queries, mutations e vaiaveis do projeto.
-    > Pasta **src/Data** serve para gerenciar tudo relacionado com banco de dados (conexoes, entities)
+- Pasta **dist** : desenvolvimento
+- Past **src** : producao
+- Pasta **src/schema** serve para armazenar as queries, mutations e vaiaveis do projeto.
+- Pasta **src/Data** serve para gerenciar tudo relacionado com banco de dados (conexoes, entities)
 
 ## Link para utilizar o markdown
 
