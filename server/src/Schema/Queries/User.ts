@@ -16,10 +16,12 @@ export const queryGetAllUsers = {
 
 /* -- CODIGO AQUI EM BAIXO EH PARA SER TESTADO NO GUI GRAPHQL EM: http://localhost:3001/graphql - */
 
-// query{
-//     queryGetAllUsers{
-//       name
-//       username
-//       password
-//     }
-//   }
+/*
+query{
+    queryGetAllUsers{
+      name
+      username
+      password
+    }
+  }
+*/
