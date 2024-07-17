@@ -4,7 +4,7 @@ import { Users } from "../../Data/Entities/Users";
 
 /* --------------------------- CRIA UM USUARIO, PASSANDO 3 PARAMETROS --------------------------- */
 export const mutCreateUser = {
-    type: UserType,
+    type: UserType,                                                                             //O que vai retornar quando a query for chamada
     args: {
         name: {type: GraphQLString},
         username: {type: GraphQLString},
@@ -13,39 +13,39 @@ export const mutCreateUser = {
     async resolve(parent: any, args: any){
         const {name, username, password} = args;
 
-        const userAVerificar =  await Users.findOne({ where: { username: username } });         // Procurar username no DB, se já existir lançar um erro
+        const userAVerificar =  await Users.findOne({ where: { username: username } });         //Procurar username no DB, se já existir lançar um erro
         if (userAVerificar){
             throw new Error (`Esse username '${username}' já existe`)
         }
 
-        Users.insert({name, username, password})                    // Aqui vc descreve oq quer inserir no banco de dados
-        // Users.insert(args)                                       // Maneira mais limpa de descrever tudo de uma vez
+        Users.insert({name, username, password})                                                //Aqui vc descreve oq quer inserir no banco de dados
+        // Users.insert(args)                                                                   //Maneira mais limpa de descrever tudo de uma vez
         return args;
     }
 }
 
 /* ---- DELETA UM USUARIO BASEADO NO SEU USERNAME, VERIFICA SE O USER EXISTE ANTES DE DELETAR --- */
 export const mutDeleteUser = {
-    type: UserType,
+    type: UserType,                                                                             //O que vai retornar quando a query for chamada
     args: {
         username: {type: GraphQLString},
     },
     async resolve(parent: any, args: any){
         const {username} = args;
 
-        const userAVerificar =  await Users.findOne({ where: { username: username } });         // Procurar username no DB, se o usuario não existir lançar um erro
+        const userAVerificar =  await Users.findOne({ where: { username: username } });         //Procurar username no DB, se o usuario não existir lançar um erro
         if (!userAVerificar) {
             throw new Error(`Usuario '${username}' não encontrado`);
         }
 
-        await Users.delete({username: username})                    // Deletando a linha referente ao usuario do DB                  
+        await Users.delete({username: username})                                                //Deletando a linha referente ao usuario do DB. O primeiro username eh referente a coluna username do DB e o segundo username eh referente ao nome do usuario                  
         return userAVerificar;
     }
 }
 
 /* ----------- ATUALIZA A SENHA DE UM USUARIO. O USUARIO EH IDENTIFICADO PELO USERNAME ---------- */
 export const mutUpdatePasswordUser = {
-    type: UserType,
+    type: UserType,                                                                             //O que vai retornar quando a query for chamada
     args: {
         username: {type: GraphQLString},
         oldPassword: {type: GraphQLString},
@@ -65,7 +65,7 @@ export const mutUpdatePasswordUser = {
             throw new Error(`A senha antiga não está correta`);
         }
 
-        await Users.update({username: username},{password: newPassword});                    // Fazendo o update da senha. Primeiro parametro identifica a linha a ser alterada, segunda linha altera a coluna com o dado/                 
+        await Users.update({username: username},{password: newPassword});                       // Fazendo o update da senha. Primeiro parametro identifica a linha a ser alterada, segunda linha altera a coluna com o dado/                 
         return userAVerificar;
     }
 }
