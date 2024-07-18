@@ -19,7 +19,14 @@
 - **yarn add graphql**: Para as criacoes das API`s
 - **yarn add express-graphql** : Para integrar API ao express
 
-## Como configurar o package.json
+## Comando basicos utilizados para iniciar o projeto (na pasta client)
+
+- **yarn create react-app . --template typescript**: Para iniciar o projeto react
+- **yarn add @apollo/client**: Para consumir graphql do lado do cliente
+- **yarn add graphql**: Para usar o graphql no react
+
+
+## Como configurar o package.json do server
 
 "scripts": {
     "start": "node ./dist/index.ts",
@@ -27,7 +34,7 @@
     "build": "tsc -p .",
 },
 
-## Como configurar o tsconfig.json
+## Como configurar o tsconfig.json do server
 
 Depois de usar o comando **tsc --init** o tsconfig.json sera criado automaticamente, entao sera necessario fazer as seguintes alteracoes no arquivo.
 
