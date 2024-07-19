@@ -24,6 +24,8 @@
 - **yarn create react-app . --template typescript**: Para iniciar o projeto react
 - **yarn add @apollo/client**: Para consumir graphql do lado do cliente
 - **yarn add graphql**: Para usar o graphql no react
+- **yarn add react-router-dom**: Para criar rotas
+- **yarn add react-hook-form**: Para criar formularios
 
 ## Comando para instalar o tailwind e o materialui
 
