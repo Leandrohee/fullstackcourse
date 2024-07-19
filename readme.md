@@ -25,6 +25,9 @@
 - **yarn add @apollo/client**: Para consumir graphql do lado do cliente
 - **yarn add graphql**: Para usar o graphql no react
 
+## Comando para instalar o tailwind e o shadcn
+
+- [passo a passo Tailwind](https://tailwindcss.com/docs/guides/create-react-app)
 
 ## Como configurar o package.json do server
 
