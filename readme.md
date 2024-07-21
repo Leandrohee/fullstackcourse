@@ -31,8 +31,13 @@
 
 - [passo a passo Tailwind](https://tailwindcss.com/docs/guides/create-react-app)
 - [passo a passo MaterialUi](https://mui.com/material-ui/getting-started/installation/)
+- [passo a passo Material Table](https://material-table.com/#/docs/install)
 - **yarn add @mui/x-data-grid**: Para usar tabela
 - **yarn add @mui/material**: Para usar textfield
+- **yarn add material-table** : Para usar material table
+- **yarn add @material-ui/core**: Pra usar material table
+- **yarn add @mui/lab**
+- **yarn add @mui/styles**
 
 ## Como configurar o package.json do server
 

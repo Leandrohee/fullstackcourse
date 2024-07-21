@@ -1,7 +1,7 @@
-import React, { ReactNode } from 'react'
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { ReactNode } from 'react'
 import TableVisualizar from '../TableVisualizar';
 import TableVisualizar2 from '../TableVisualizar2';
+import TableVisualizar3 from '../TableVisualizar3';
 
 interface VisualizaDadosProps{
     children?: ReactNode,
@@ -20,7 +20,7 @@ export default function VisualizaDados({children, tabela}: VisualizaDadosProps) 
         >
             {(tabela === 1) && <TableVisualizar/>}
             {(tabela === 2) && <TableVisualizar2/>}
-            {(tabela === 3) && <div>Tabela 3</div>}
+            {(tabela === 3) && <TableVisualizar3/>}
         </section>
     )
 }
