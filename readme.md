@@ -39,6 +39,7 @@
 - **yarn add @mui/lab**
 - **yarn add @mui/styles**
 - **yarn add @mui/icons-material**: Icones 
+- **yarn add react-toastify**: Para adicionar toast
 
 ## Como configurar o package.json do server
 

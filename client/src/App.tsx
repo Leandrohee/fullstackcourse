@@ -3,6 +3,8 @@ import { NavBar } from "./components/NavBar";
 import { AddDados } from "./components/paginas/AddDados";
 import VisualizaDados from "./components/paginas/VisualizaDados";
 import { BrowserRouter, Routes,Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
 
@@ -25,6 +27,7 @@ function App() {
             <Route path="/visualizar2" element={<VisualizaDados tabela={2}/>} />
             <Route path="/visualizar3" element={<VisualizaDados tabela={3}/>} />
           </Routes>
+          <ToastContainer/>
         </BrowserRouter>
       </ApolloProvider>
     </>
