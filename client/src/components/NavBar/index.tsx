@@ -1,8 +1,4 @@
-import { Button } from "@mui/material";
-import { GenericButton } from "../GenericButton";
 import { Link } from "react-router-dom";
-import { GenericLink } from "../GenericLink";
-
 
 export function NavBar(){
     return(

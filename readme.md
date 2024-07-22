@@ -38,6 +38,7 @@
 - **yarn add @material-ui/core**: Pra usar material table
 - **yarn add @mui/lab**
 - **yarn add @mui/styles**
+- **yarn add @mui/icons-material**: Icones 
 
 ## Como configurar o package.json do server
 

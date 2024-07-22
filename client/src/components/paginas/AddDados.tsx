@@ -1,7 +1,6 @@
 import { Square } from "../Square";
 import { useForm } from "react-hook-form";       
 import TextField from '@mui/material/TextField';                   
-import { GenericButton } from "../GenericButton";
 
 export function AddDados(){
     const {
@@ -14,11 +13,6 @@ export function AddDados(){
     const watchNome = watch('nome')
     const watchUsername = watch('username')
     const wathPassword = watch('password')
-
-    // function validaNome(watchNome: string): boolean{
-    //    if (watchNome){return watchNome.length <= 2 ? true : false} 
-    //    return false
-    // }
 
     function validaNome(watchNome: string): boolean{
         if (watchNome){return watchNome.length <= 2 ? false : true} 
@@ -59,16 +53,6 @@ export function AddDados(){
                     defaultValue={""}
                     {...register("nome", {required: true, validate: dt => dt = validaNome(dt)})}                            //Se tiver false libera o forms
                 />
-                {/* <TextField                                                                                              //Validacao somente apos o salvar
-                    helperText={errors?.nome2 ? "Nome tem que ser maior que 2 digitos" : ""}
-                    error={errors?.nome2 ? true : false}
-                    required
-                    size="small"
-                    label= "Nome com validate depois"
-                    fullWidth
-                    defaultValue={""}
-                    {...register("nome2", {required: true, validate: dt => dt = validaNome(dt)})}                           //Esse validate eh o que pega os erros. Se retornar false envia o formulario
-                /> */}
                 <TextField
                     error={validaUsername(watchUsername) == false ? true : false}                                           // Se for true eh acionado a cor vermelha
                     helperText={validaUsername(watchUsername) == false ? "Username tem que ser maior que 5 digitos " : ""}  //Se for true eh acionado a mensagem
