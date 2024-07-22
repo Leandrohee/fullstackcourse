@@ -1,6 +1,6 @@
 import { GraphQLID, GraphQLString } from "graphql";
 import { UserType } from "../TypeDefs/User";
-import { Users } from "../../Data/Entities/Users";
+import { Users } from "../../Data/Entities/Users";                                              //Criado com o typeORM
 
 /* --------------------------- CRIA UM USUARIO, PASSANDO 3 PARAMETROS --------------------------- */
 export const mutCreateUser = {

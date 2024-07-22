@@ -66,8 +66,6 @@ export function AddDados(){
             console.error(error)
             toast.error("Erro ao adicionar usuário")
         }
-
-
     };
 
     return(
@@ -81,7 +79,7 @@ export function AddDados(){
                     label= "Nome"
                     fullWidth
                     defaultValue={""}
-                    {...register("nome", { required: "O nome é obrigatório", validate: dt => validaNome(dt) || "" })}
+                    {...register("nome", { required: "O nome é obrigatório", validate: dt => validaNome(dt)})}
                     />
                 <TextField
                     error={validaUsername(watchUsername) == false ? true : false}                                           // Se for true eh acionado a cor vermelha
