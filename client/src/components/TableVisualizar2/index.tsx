@@ -2,6 +2,11 @@ import { IconButton } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
+import { useQuery } from "@apollo/client";
+import { QUERY_GET_ALL_USERS } from "../../Graphql/Queries";
+import { useEffect, useState } from "react";
+
+
 
 function handleEdit(data: any){
     console.log(data.row)
@@ -11,14 +16,32 @@ function handleDelete(data: any){
     console.log(data)
 }
 
+/* ------------- ESSA INTERFACE MANEJA AS PROPS QUE VEM DA QUERY 'queryGetAllUsers' ------------- */
+interface itfQueryGetAllUsers{
+    id: number,
+    name: string,
+    username: string,
+    password: string
+}
 
+/* ------------------------------------ INICIO DO COMPONENTE ------------------------------------ */
 export default function TableVisualizar2() {
+    const [currentData, setCurrentData] = useState<itfQueryGetAllUsers[]>([])               //A variavel 'currentData' só pode aceitar Array que contenha objetos com a interface 'itfQueryGetAllUsers'
+    const {loading, error, data} = useQuery(QUERY_GET_ALL_USERS)
+
+    useEffect(()=>{
+        if (loading === false){
+            setCurrentData(data.queryGetAllUsers)
+        }
+    },[data])
+
+    console.log(currentData) 
 
     const columns: GridColDef[] = [
         { field: 'id', headerName: 'ID', width: 70},
-        { field: 'firstName', headerName: 'First name', flex: 1, headerAlign: 'center', align: 'center'},
-        { field: 'lastName', headerName: 'Last name', flex: 1 , headerAlign: 'center', align: 'center' },
-        { field: 'age', headerName: 'Age', flex: 1, type: 'number', headerAlign: 'center', align: 'center'},
+        { field: 'name', headerName: 'Nome', flex: 1, headerAlign: 'center', align: 'center'},
+        { field: 'username', headerName: 'Username', flex: 1 , headerAlign: 'center', align: 'center' },
+        { field: 'password', headerName: 'Password', flex: 1, headerAlign: 'center', align: 'center'},
         {
             field: 'fullName', 
             headerName: 'Full name',
@@ -26,7 +49,7 @@ export default function TableVisualizar2() {
             sortable: false,
             flex: 1,
             headerAlign: 'center', align: 'center',
-            valueGetter: (value, row) => `${row.firstName || ''} ${row.lastName || ''}`,
+            valueGetter: (value, row) => `${row.firstName || ''} Mané`,
         },
         {
             field: 'actions',
@@ -47,20 +70,9 @@ export default function TableVisualizar2() {
         },
       ];
 
-      function createData(
-        id: number,
-        firstName: string,
-        lastName: string,
-        age: number,
-      ) {
-        return { id, firstName, lastName, age };
-      }
-
-    const rows = [
-        createData(1,'Leandro', 'Torres', 29,),
-        createData(2,'Rafael', 'Torres', 27,),
-        createData(3,'Felipe', 'Torres', 18,),
-    ]
+    const rows = currentData.map((item) => {
+        return ({...item})
+    })
 
     return (
         <div className= "h-[95%] w-[100%]">

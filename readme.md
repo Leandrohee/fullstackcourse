@@ -18,6 +18,7 @@
 - **yarn add pg** : Para o typeorm se connectar com bancos baseados em postgreSql
 - **yarn add graphql**: Para as criacoes das API`s
 - **yarn add express-graphql** : Para integrar API ao express
+- **yarn add class-validator**: Para validar colunas no Banco
 
 ## Comando basicos utilizados para iniciar o projeto (na pasta client)
 

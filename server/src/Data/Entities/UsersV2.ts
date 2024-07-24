@@ -8,8 +8,15 @@
 /* ------ DEPOIS DE FAZER A ENTIDADE DEVEMOS IMPORTAR ELA NO Index.TS PRINCIPAL DO PROJETO ------ */
 
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { IsInt, Min, Max, IsEnum, IsOptional } from "class-validator";
+
+
+enum Sex{                                           //Valores permitidos para a coluna 'sex'
+    Homem = "Homem",
+    Mulher = "Mulher"
+}
 @Entity()
-export class Users extends BaseEntity{
+export class UsersV2 extends BaseEntity{
 
     @PrimaryGeneratedColumn()
     id!: number;
@@ -22,4 +29,21 @@ export class Users extends BaseEntity{
 
     @Column()
     password!: string;
+
+    @Column()
+    @IsInt()
+    @Min(0)
+    @Max(150)
+    @IsOptional()
+    age?: number;
+
+    @Column()
+    profession!: string;
+
+    @Column({
+        type: "enum",
+        enum: Sex
+    })
+    @IsEnum(Sex)
+    sex!: Sex;
 }

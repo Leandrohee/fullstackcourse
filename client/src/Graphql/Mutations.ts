@@ -2,6 +2,7 @@
 
 import { gql } from "@apollo/client";
 
+/* --- A MUTATION TEM QUE TER O MESMO NOME DA CONSTRUIDA NO SCHEMA DO BACKEND 'mutCreateUser' --- */
 export const MUT_CREATE_USER = gql`
     mutation mutCreateUser($name: String!, $username: String!, $password: String!) {
         mutCreateUser(name: $name, username: $username, password: $password){
