@@ -4,6 +4,7 @@ import TextField from '@mui/material/TextField';
 import { useMutation } from "@apollo/client";    
 import { MUT_CREATE_USER } from "../../Graphql/Mutations";
 import { toast } from "react-toastify";
+import { QUERY_GET_ALL_USERS } from "../../Graphql/Queries";
 
 interface usernameDados{                                                //Interface seta o retorno do formulario
     nome: string,
@@ -13,7 +14,12 @@ interface usernameDados{                                                //Interf
 
 export function AddDados(){
 
-    const [addUsuario] = useMutation(MUT_CREATE_USER);
+    const [addUsuario, ] = useMutation(MUT_CREATE_USER,{
+        refetchQueries: [                                               //Da o refetch em uma queria apos uma mutation
+            {query: QUERY_GET_ALL_USERS},                               //Escolhe qual a querie
+        ],
+        awaitRefetchQueries: true
+    });
 
     const {
         register,                                                       //Referencia o campo input, select 
@@ -21,7 +27,7 @@ export function AddDados(){
         formState: { errors },                                          //errors é um objeto use o validate para pegar ele
         watch,                                                          //watch verifica a alteração do campo a cada mudanca
         reset
-    } = useForm<usernameDados>();                                     //O retorno do formulario
+    } = useForm<usernameDados>();                                       //O retorno do formulario
 
     const watchNome = watch('nome')
     const watchUsername = watch('username')

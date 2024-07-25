@@ -4,7 +4,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import { useQuery } from "@apollo/client";
 import { QUERY_GET_ALL_USERS } from "../../Graphql/Queries";
-import { useEffect, useState } from "react";
 import {QueryGetAllUsersQuery } from "../../__generated__/graphql";
 
 
@@ -20,12 +19,9 @@ function handleDelete(data: any){
 
 /* ------------------------------------ INICIO DO COMPONENTE ------------------------------------ */
 export default function TableVisualizar2() {
-    const [currentData, setCurrentData] = useState([])                                      //A variavel 'currentData' só pode aceitar Array que contenha objetos com a interface 'itfQueryGetAllUsers'
-    const {loading, error, data} = useQuery<QueryGetAllUsersQuery>(QUERY_GET_ALL_USERS)        //A reposta da query tem que ter as caracteristicas setadas na interface
+    const {loading, error, data } = useQuery<QueryGetAllUsersQuery>(QUERY_GET_ALL_USERS)          //A reposta da query tem que ter as caracteristicas setadas na interface
     
-
-    data && console.log(data.queryGetAllUsers) 
-
+    data && console.log(data.queryGetAllUsers)
 
     /* ----------------------------- CONFIGURANDO AS COLUNAS E AS LINHAS ---------------------------- */
     const columns: GridColDef[] = [
