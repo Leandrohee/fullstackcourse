@@ -4,8 +4,8 @@ import { DataSource } from "typeorm";
 import { Users } from "./Entities/Users";
 import { UsersV2 } from "./Entities/UsersV2";
 
-// const dataBaseName = 'leandro_db'                        // Se estiver usando no windows
-const dataBaseName = 'leandro_db_mac'                    // Se estiver usando no mac
+const dataBaseName = 'leandro_db'                        // Se estiver usando no windows
+// const dataBaseName = 'leandro_db_mac'                    // Se estiver usando no mac
 
 export const AppDataSource = new DataSource({
     type: "postgres",

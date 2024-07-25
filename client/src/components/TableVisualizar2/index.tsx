@@ -5,7 +5,7 @@ import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import { useQuery } from "@apollo/client";
 import { QUERY_GET_ALL_USERS } from "../../Graphql/Queries";
 import { useEffect, useState } from "react";
-
+import {QueryGetAllUsersQuery } from "../../__generated__/graphql";
 
 
 function handleEdit(data: any){
@@ -16,27 +16,18 @@ function handleDelete(data: any){
     console.log(data)
 }
 
-/* ------------- ESSA INTERFACE MANEJA AS PROPS QUE VEM DA QUERY 'queryGetAllUsers' ------------- */
-interface itfQueryGetAllUsers{
-    id: number,
-    name: string,
-    username: string,
-    password: string
-}
+
 
 /* ------------------------------------ INICIO DO COMPONENTE ------------------------------------ */
 export default function TableVisualizar2() {
-    const [currentData, setCurrentData] = useState<itfQueryGetAllUsers[]>([])               //A variavel 'currentData' só pode aceitar Array que contenha objetos com a interface 'itfQueryGetAllUsers'
-    const {loading, error, data} = useQuery(QUERY_GET_ALL_USERS)
+    const [currentData, setCurrentData] = useState([])                                      //A variavel 'currentData' só pode aceitar Array que contenha objetos com a interface 'itfQueryGetAllUsers'
+    const {loading, error, data} = useQuery<QueryGetAllUsersQuery>(QUERY_GET_ALL_USERS)        //A reposta da query tem que ter as caracteristicas setadas na interface
+    
 
-    useEffect(()=>{
-        if (loading === false){
-            setCurrentData(data.queryGetAllUsers)
-        }
-    },[data])
+    data && console.log(data.queryGetAllUsers) 
 
-    console.log(currentData) 
 
+    /* ----------------------------- CONFIGURANDO AS COLUNAS E AS LINHAS ---------------------------- */
     const columns: GridColDef[] = [
         { field: 'id', headerName: 'ID', width: 70},
         { field: 'name', headerName: 'Nome', flex: 1, headerAlign: 'center', align: 'center'},
@@ -70,10 +61,11 @@ export default function TableVisualizar2() {
         },
       ];
 
-    const rows = currentData.map((item) => {
+    const rows = data?.queryGetAllUsers?.map((item) => {
         return ({...item})
     })
 
+    /* ---------------------------------- RENDERIZANDO O COMPONENTE --------------------------------- */
     return (
         <div className= "h-[95%] w-[100%]">
             <div className= "text-center mb-2">
@@ -93,7 +85,7 @@ export default function TableVisualizar2() {
                 initialState={{
                 columns:{
                     columnVisibilityModel:{
-                        id: false,                                  //Deixa a coluna "id" invisivel
+                        id: false,                                                              //Deixa a coluna "id" invisivel
                     }
                 },
                 pagination: {
