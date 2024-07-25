@@ -27,6 +27,10 @@
 - **yarn add graphql**: Para usar o graphql no react
 - **yarn add react-router-dom**: Para criar rotas
 - **yarn add react-hook-form**: Para criar formularios
+- **yarn add @graphql-codegen/cli** : Automatizar interfaces de graphql
+- **yarn add @graphql-codegen/typescript** : Automatizar interfaces de graphql
+- **yarn add @graphql-codegen/typescript-operations** : Automatizar interfaces de graphql
+- **yarn add @graphql-codegen/typescript-react-apollo** : Automatizar interfaces de graphql
 
 ## Comando para instalar o tailwind e o materialui
 
