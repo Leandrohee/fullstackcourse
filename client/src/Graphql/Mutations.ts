@@ -12,3 +12,13 @@ export const MUT_CREATE_USER = gql`
         }
     }
 `
+
+export const MUT_DELETE_USER = gql`
+    mutation mutDeleteUser($username: String!){
+        mutDeleteUser(username: $username){
+            username
+        }
+    }
+`
+
+// export const MUT_UPDATE_USER

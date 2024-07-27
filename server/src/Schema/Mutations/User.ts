@@ -70,6 +70,27 @@ export const mutUpdatePasswordUser = {
     }
 }
 
+/* ----------------------------------- VERIFICAR ESSA MUTATION ---------------------------------- */
+export const mutUpdateNameUser = {
+    type: UserType,
+    args:{
+        id: {type: GraphQLID},
+        name: {type: GraphQLString},
+        newName: {type: GraphQLString}
+    },
+    async resolve(parent: any, args: any){
+        const {id, name, newName} = args
+
+        const userAVerificar = await Users.findOne({ where: { id: id, name: name}});
+
+        if (!userAVerificar) {
+            throw new Error(`Nomde de usuario: '${name}' ou id: '${id}' não encontrados`);
+        }
+
+        await Users.update({id: id},{name: newName});
+    }
+}
+
 
 
 /* -- CODIGO AQUI EM BAIXO EH PARA SER TESTADO NO GUI GRAPHQL EM: http://localhost:3001/graphql - */

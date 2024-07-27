@@ -1,32 +1,81 @@
 import { IconButton } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
-import { useQuery } from "@apollo/client";
+import CheckIcon from '@mui/icons-material/Check';
+import CloseIcon from '@mui/icons-material/Close';
+import { DataGrid, GridColDef, GridRenderCellParams, GridRowModes, GridRowModesModel } from "@mui/x-data-grid";
+import { useMutation, useQuery } from "@apollo/client";
 import { QUERY_GET_ALL_USERS } from "../../Graphql/Queries";
 import {QueryGetAllUsersQuery } from "../../__generated__/graphql";
-
-
-function handleEdit(data: any){
-    console.log(data.row)
-}
-
-function handleDelete(data: any){
-    console.log(data)
-}
-
-
+import { MUT_DELETE_USER } from "../../Graphql/Mutations";
+import { toast } from "react-toastify";
+import { useState } from "react";
 
 /* ------------------------------------ INICIO DO COMPONENTE ------------------------------------ */
 export default function TableVisualizar2() {
     const {loading, error, data } = useQuery<QueryGetAllUsersQuery>(QUERY_GET_ALL_USERS)          //A reposta da query tem que ter as caracteristicas setadas na interface
-    
-    data && console.log(data.queryGetAllUsers)
+    const [rowEditableId, setRowEditableId] = useState(-1);
+    const [newName, setNewName] = useState("")
+    const [deleteUsuario] = useMutation(MUT_DELETE_USER,{
+        refetchQueries:[
+            {query: QUERY_GET_ALL_USERS},
+        ],
+        awaitRefetchQueries: true
+    })
+
+    // data && console.log(data.queryGetAllUsers)
+    console.log(newName)
+    console.log(rowEditableId)
+
+
+    /* ------------------------------ FUNCOES DE DELETAR E EDITAR DADOS ----------------------------- */
+    function handleEdit(data: any){
+        console.log(data.row.id)
+        setRowEditableId(data.row.id)
+    }
+
+    function handleConfirmEdit(){
+        setRowEditableId(-1);                                                                       //Resetando o rowEditableId
+        setNewName("");                                                                             //Resetando o newName
+    }
+
+    function handleCancelEdit(){
+        setRowEditableId(-1);                                                                       //Resetando o rowEditableId
+        setNewName("");
+    }
+
+    async function handleDelete(data: any){
+        try{
+            await deleteUsuario({
+                variables:{
+                    username: data.row.username
+                }
+            });
+            toast.success("Usuario deletado com sucesso")
+        }
+        catch(error){
+            console.error(error)
+            toast.error("Erro ao deletar usuario")
+        }
+    }
 
     /* ----------------------------- CONFIGURANDO AS COLUNAS E AS LINHAS ---------------------------- */
     const columns: GridColDef[] = [
         { field: 'id', headerName: 'ID', width: 70},
-        { field: 'name', headerName: 'Nome', flex: 1, headerAlign: 'center', align: 'center'},
+        { field: 'name', headerName: 'Nome', flex: 1, headerAlign: 'center', align: 'center',
+            renderCell: (params: GridRenderCellParams) => (                             //Essa funcao rendercell renderiza outra coisa ao invezdo valor normal dela
+                rowEditableId === params.id ? (
+                    <input onChange={(e)=>{setNewName(e?.target?.value)}}
+                        className="bg-inherit focus:outline-none text-red-500" 
+                        defaultValue={params.formattedValue}
+                    />
+                )
+                : (
+                    params.formattedValue
+                )
+
+            ),
+        },
         { field: 'username', headerName: 'Username', flex: 1 , headerAlign: 'center', align: 'center' },
         { field: 'password', headerName: 'Password', flex: 1, headerAlign: 'center', align: 'center'},
         {
@@ -45,6 +94,16 @@ export default function TableVisualizar2() {
             headerAlign: 'center',
             align: 'center',
             renderCell: (params: GridRenderCellParams) => (
+                rowEditableId === params.id ?
+                <div>
+                    <IconButton onClick={() => handleConfirmEdit()} color="inherit">
+                        <CheckIcon sx={{color: 'green', fontSize: '100%'}}/>
+                    </IconButton>
+                    <IconButton onClick={() => handleCancelEdit()} color="inherit">
+                        <CloseIcon sx={{color: 'red', fontSize: '100%'}}/>
+                    </IconButton>  
+                </div>
+                :
                 <div>
                     <IconButton onClick={() => handleEdit(params)} color="inherit">
                         <EditIcon sx={{fontSize: '80%'}}/>
@@ -54,7 +113,7 @@ export default function TableVisualizar2() {
                     </IconButton>
                 </div>
             ),
-        },
+        }, //fim do 'actions'
       ];
 
     const rows = data?.queryGetAllUsers?.map((item) => {
@@ -85,10 +144,10 @@ export default function TableVisualizar2() {
                     }
                 },
                 pagination: {
-                    paginationModel: { page: 0, pageSize: 20 },
+                    paginationModel: { page: 0, pageSize: 5 },
                 },
                 }}
-                pageSizeOptions={[10, 20]}
+                pageSizeOptions={[5, 10]}
                 // checkboxSelection
             />
         </div>

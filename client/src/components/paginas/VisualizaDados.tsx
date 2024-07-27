@@ -14,7 +14,7 @@ export default function VisualizaDados({children, tabela}: VisualizaDadosProps) 
     return (
         <section
             className= {`
-                h-[60vh] w-[45vw] bg-yellow-200 mx-auto
+                h-[60vh] w-[55vw] bg-yellow-200 mx-auto
                 rounded-3xl my-auto shadow-2xl p-5 flex
             `}
         >
