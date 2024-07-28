@@ -21,4 +21,11 @@ export const MUT_DELETE_USER = gql`
     }
 `
 
-// export const MUT_UPDATE_USER
+export const MUT_UPDATE_NAME = gql`
+    mutation mutUpdateName($id: ID!, $name: String!, $newName: String!){
+        mutUpdateName(id: $id,name: $name, newName: $newName){
+            id
+            name
+        }
+    }
+`

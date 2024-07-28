@@ -9,7 +9,11 @@ import { Users } from "../../Data/Entities/Users";
 export const queryGetAllUsers = {
     type: new GraphQLList(UserType),
     resolve() {
-        return Users.find();
+        return Users.find({
+          order: {                            //Ordenando pela coluna 'name' do DB de forma de A-Z
+            name: "ASC"
+          }
+        });
     }
 }
 

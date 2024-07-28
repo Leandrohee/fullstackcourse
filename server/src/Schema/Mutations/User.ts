@@ -71,7 +71,7 @@ export const mutUpdatePasswordUser = {
 }
 
 /* ----------------------------------- VERIFICAR ESSA MUTATION ---------------------------------- */
-export const mutUpdateNameUser = {
+export const mutUpdateName = {
     type: UserType,
     args:{
         id: {type: GraphQLID},
@@ -81,13 +81,14 @@ export const mutUpdateNameUser = {
     async resolve(parent: any, args: any){
         const {id, name, newName} = args
 
-        const userAVerificar = await Users.findOne({ where: { id: id, name: name}});
+        const userAVerificar = await Users.findOne({ where: { id: id, name: name}});            //Acha o usuario pelo nome e id
 
         if (!userAVerificar) {
             throw new Error(`Nomde de usuario: '${name}' ou id: '${id}' não encontrados`);
         }
 
-        await Users.update({id: id},{name: newName});
+        await Users.update({id: id},{name: newName});                                           //Primeiro objeto localiza a linha a ser modificada. Segundo objeto troca o campo requerido
+        return userAVerificar;
     }
 }
 
@@ -121,5 +122,14 @@ mutation{
       oldPassword
       newPassword
     }
+}
+*/
+
+/*
+mutation{
+	mutUpdateName(id: 9,name: "teste", newName: "testeLeandro"){
+    id
+    name
+  }
 }
 */

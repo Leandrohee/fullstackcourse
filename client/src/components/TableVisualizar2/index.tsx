@@ -3,11 +3,11 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
-import { DataGrid, GridColDef, GridRenderCellParams, GridRowModes, GridRowModesModel } from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridRenderCellParams} from "@mui/x-data-grid";
 import { useMutation, useQuery } from "@apollo/client";
 import { QUERY_GET_ALL_USERS } from "../../Graphql/Queries";
 import {QueryGetAllUsersQuery } from "../../__generated__/graphql";
-import { MUT_DELETE_USER } from "../../Graphql/Mutations";
+import { MUT_DELETE_USER, MUT_UPDATE_NAME } from "../../Graphql/Mutations";
 import { toast } from "react-toastify";
 import { useState } from "react";
 
@@ -22,21 +22,41 @@ export default function TableVisualizar2() {
         ],
         awaitRefetchQueries: true
     })
+    const [updateName] = useMutation(MUT_UPDATE_NAME,{
+        refetchQueries:[
+            {query: QUERY_GET_ALL_USERS},
+        ],
+        awaitRefetchQueries: true
+    })
 
-    // data && console.log(data.queryGetAllUsers)
-    console.log(newName)
-    console.log(rowEditableId)
 
 
     /* ------------------------------ FUNCOES DE DELETAR E EDITAR DADOS ----------------------------- */
     function handleEdit(data: any){
-        console.log(data.row.id)
+        console.log(data)
         setRowEditableId(data.row.id)
     }
 
-    function handleConfirmEdit(){
+    async function handleConfirmEdit(data: any){
+        console.log(data.row)
+        try{
+            await updateName({
+                variables:{
+                    id: data.row.id,
+                    name: data.row.name,
+                    newName: newName
+                }
+            });
+            toast.success("Usuario editado com sucesso")
+        }
+        catch(error){
+            console.error(error)
+            toast.error("Erro ao editar o usuario")
+        }
+        finally{
         setRowEditableId(-1);                                                                       //Resetando o rowEditableId
         setNewName("");                                                                             //Resetando o newName
+        }
     }
 
     function handleCancelEdit(){
@@ -65,9 +85,10 @@ export default function TableVisualizar2() {
         { field: 'name', headerName: 'Nome', flex: 1, headerAlign: 'center', align: 'center',
             renderCell: (params: GridRenderCellParams) => (                             //Essa funcao rendercell renderiza outra coisa ao invezdo valor normal dela
                 rowEditableId === params.id ? (
-                    <input onChange={(e)=>{setNewName(e?.target?.value)}}
-                        className="bg-inherit focus:outline-none text-red-500" 
+                    <input
+                        onChange={(e)=>{setNewName(e?.target?.value)}}
                         defaultValue={params.formattedValue}
+                        className={`bg-inherit focus:outline-none text-red-500`}        
                     />
                 )
                 : (
@@ -94,16 +115,16 @@ export default function TableVisualizar2() {
             headerAlign: 'center',
             align: 'center',
             renderCell: (params: GridRenderCellParams) => (
-                rowEditableId === params.id ?
-                <div>
-                    <IconButton onClick={() => handleConfirmEdit()} color="inherit">
+                rowEditableId === params.id ?                                                       //Renderizar esse se linha no modo editar
+                <div>                                                                               
+                    <IconButton onClick={() => handleConfirmEdit(params)} color="inherit">          
                         <CheckIcon sx={{color: 'green', fontSize: '100%'}}/>
                     </IconButton>
                     <IconButton onClick={() => handleCancelEdit()} color="inherit">
                         <CloseIcon sx={{color: 'red', fontSize: '100%'}}/>
                     </IconButton>  
                 </div>
-                :
+                :                                                                                   //Renderizar esse se nenhuma linha no modo editar
                 <div>
                     <IconButton onClick={() => handleEdit(params)} color="inherit">
                         <EditIcon sx={{fontSize: '80%'}}/>
@@ -131,11 +152,13 @@ export default function TableVisualizar2() {
                 columns={columns}
                 disableColumnResize
                 rowHeight={40}
+                disableRowSelectionOnClick
                 sx={{
                     boxShadow: 3,
                     border: 0,
-                    borderColor: "black",
                     '& .MuiDataGrid-cell:hover': { color: 'red'},
+                    '& .MuiDataGrid-cell:focus': {outline: 'none'},                             //Retirando a borda azul ao tocar na cell
+                    '& .MuiDataGrid-cell:focus-within': {outline: 'none'},                      //Retirando a borda azul ao tocar na cell
                 }}
                 initialState={{
                 columns:{
